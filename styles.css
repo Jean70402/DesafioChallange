@@ -135,7 +135,6 @@ button:hover {
     box-sizing: border-box;
     overflow: hidden;
     box-sizing: border-box;
-    word-wrap: break-word;
     overflow-wrap: break-word; 
     overflow-y: auto;
 }
