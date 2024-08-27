@@ -116,6 +116,7 @@ button:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 40px;
     text-align: center;
+    min-width: 300px;
 }
 
 .output-image {
@@ -136,9 +137,11 @@ button:hover {
     box-sizing: border-box;
     word-wrap: break-word;
     overflow-wrap: break-word; 
-    word-break: break-all; 
+    overflow-y: auto;
 }
-
+.inputTextClass{
+    min-height: 300px;
+}
 .text-bold {
     font-weight: bold;
     font-size: 24px;
@@ -146,11 +149,13 @@ button:hover {
     color: var(--color_texto_negrita);
     max-width: auto;
     word-wrap: break-word;
+    overflow-y: auto;
 }
 
 .text-small {
     font-size: 16px;
     color: var(--color_texto_gris);
+    
 }
 
 .outputContainer {
@@ -162,4 +167,119 @@ button:hover {
     margin: 32px;
     height: 67px;
     text-align: center;
+}
+
+/* Estilos para tablets */
+@media (max-width: 768px) and (max-height: 1174px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .input-section {
+        width: 90%;
+        margin: 0;
+    }
+    .inputTextClass{
+        margin-top: 152px;
+    }
+    .button-container {
+        flex-direction:row;
+        gap: 24px;
+        margin-bottom: 0;
+    }
+    
+    textarea {
+
+        font-size: 32px;
+    }
+    .output-section {
+        width: 90%;
+        max-width: none;
+        margin: 20px 0;
+        padding: 10px;
+        min-width: auto;
+    }
+    .output-image {
+        display: none;
+    }
+    .outputContainer {
+        align-items: center;
+    }
+    
+    .text-block {
+        margin: 16px;
+        padding: 8px;
+    }
+    
+    .text-bold {
+        font-size: 22px;
+    }
+    
+    .text-small {
+        font-size: 14px;
+    }
+    
+    .copyButton {
+        margin: 10px;
+    }
+}
+
+/* Estilos para celulares */
+@media (max-width: 375px) and (max-height: 993px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .input-section {
+        width: 90%;
+        margin: 0;
+    }
+    .inputTextClass{
+        margin-top: 152px;
+    }
+    .button-container {
+        width: auto;
+        flex-direction:column;
+        gap: 24px;
+        margin-bottom: 0;
+        min-height:150px;
+        height: auto;
+    }
+    
+    textarea {
+
+        font-size: 32px;
+    }
+    .output-section {
+        width: 90%;
+        max-width: none;
+        margin: 20px 0;
+        padding: 10px;
+        min-width: auto;
+    }
+    .output-image {
+        display: none;
+    }
+    .outputContainer {
+        align-items: center;
+    }
+    
+    .text-block {
+        margin: 16px;
+        padding: 8px;
+    }
+    
+    .text-bold {
+        font-size: 22px;
+    }
+    
+    .text-small {
+        font-size: 14px;
+    }
+    
+    .copyButton {
+        margin: 10px;
+    }
 }

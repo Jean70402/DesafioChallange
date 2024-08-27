@@ -3,11 +3,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const outputTextBold = document.getElementById('outputTextBold');
     const outputTextSmall = document.getElementById('outputTextSmall');
     const outputImage = document.getElementById('outputImage');
-    const copyButton = document.getElementById('copyButton'); // Botón de copiar
+    const copyButton = document.getElementById('copyButton');
     const outputSection = document.getElementById('output-section');
     const outputContainer = document.getElementById('outputContainer');
     const wordsToAdd = ["1fd", "Okj", "d46xc"];
     const wordsToRemove = ["1fd", "Okj", "d46xc"];
+
+    function updateImageDisplay() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        console.log(`Window size: ${width}x${height}`); // Debugging line
+        if (width <= 768 && height<=1174 ) {
+            outputImage.style.display = 'none';
+        } else {
+            outputImage.style.display = 'block';
+        }
+    }
 
     function encryptText(text) {
         const getRandomWord = () => wordsToAdd[Math.floor(Math.random() * wordsToAdd.length)];
@@ -32,60 +43,66 @@ document.addEventListener('DOMContentLoaded', () => {
             .join(' ');
     }
 
-
     function decryptText(text) {
         const regex = new RegExp(`(${wordsToRemove.join('|')})`, 'g');
         return text.replace(regex, '').trim();
     }
 
-    document.getElementById('encryptButton').addEventListener('click', () => {
+    function handleTextChange() {
         const text = inputText.value.trim();
-        outputContainer.style.marginTop = 'auto';
         if (text) {
+            outputContainer.style.marginTop = 'auto';
             const encryptedText = encryptText(text);
             outputTextBold.textContent = encryptedText;
             outputTextBold.style.textAlign = "left";
-            outputTextBold.style.fontWeight = 'normal';
-            outputTextBold.style.wordBreak="break-all";
+            outputTextBold.style.fontWeight = 'bold';
+            outputTextBold.style.wordBreak = "break-all";
             outputTextSmall.textContent = '';
-            outputImage.style.display = 'none';
             copyButton.style.display = 'block';
             outputSection.style.alignItems = 'flex-start';
             outputSection.style.justifyContent = 'flex-start';
-
+            outputImage.style.display = 'none'; // Hide the image here as well
         } else {
+            outputContainer.style.marginTop = ''; // Restore original margin
+            outputTextBold.style.wordBreak = "normal";
             outputTextBold.textContent = 'Ningún mensaje fue encontrado';
+            outputTextBold.style.textAlign = "center"; // Restore original textAlign
+            outputTextBold.style.fontWeight = ''; // Restore original fontWeight
             outputTextSmall.textContent = 'Ingrese el texto que desees encriptar.';
-            outputTextBold.style.wordBreak="break-all";
             copyButton.style.display = 'none';
             outputSection.style.alignItems = 'center';
             outputSection.style.justifyContent = 'center';
+            outputImage.style.display = ''; // Restore original display state for image
+            updateImageDisplay(); // Update image display based on window size
         }
-    });
+    }
+    
 
-
+    document.getElementById('encryptButton').addEventListener('click', handleTextChange);
     document.getElementById('decryptButton').addEventListener('click', () => {
         const text = inputText.value.trim();
-        outputContainer.style.marginTop = 'auto';
         if (text) {
+            outputContainer.style.marginTop = 'auto';
             const decryptedText = decryptText(text);
             outputTextBold.textContent = decryptedText;
             outputTextBold.style.textAlign = "left";
-            outputTextBold.style.fontWeight = 'normal';
-            outputTextBold.style.wordBreak="normal";
+            outputTextBold.style.fontWeight = 'bold';
+            outputTextBold.style.wordBreak = "normal";
             outputTextSmall.textContent = '';
             outputSection.style.alignItems = 'flex-start';
             outputSection.style.justifyContent = 'flex-start';
-            outputImage.style.display = 'none';
             copyButton.style.display = 'block';
-            
-
+            outputImage.style.display = 'none'; 
         } else {
-            outputTextBold.style.wordBreak="break-all";
-            outputTextBold.style.textAlign = "left";
+            outputSection.style.justifyContent = 'center';
+            outputTextBold.style.wordBreak = "normal";
+            outputSection.style.alignItems = 'center';
+            outputSection.style.justifyContent = 'center';
+            outputTextBold.style.textAlign = "center";
             outputTextBold.textContent = 'Ningún mensaje fue encontrado';
             outputTextSmall.textContent = 'Ingrese el texto que desees desencriptar.';
             copyButton.style.display = 'none';
+            updateImageDisplay(); 
         }
     });
 
@@ -97,4 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.execCommand('copy'); 
         window.getSelection().removeAllRanges(); 
     });
+
+    updateImageDisplay(); // Call on load
+    window.addEventListener('resize', updateImageDisplay); // Call on resize
 });
