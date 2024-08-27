@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChallangeAluraJeanCedeno</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <img class="imagenLogo" src="assets/Logo.png" />
+    <div class="container">
+        <div class="input-section">
+            <textarea id="inputText" placeholder="Introduce tu texto aquí"></textarea>
+            <div class="containerTotal">
+                <div class="textoInformativo">
+                    <p><img class="infoLogo" src="assets/info.png"> Solo letras minúsculas y sin acento.</p>
+                </div>
+                <div class="button-container">
+                    <button id="encryptButton">Encriptar</button>
+                    <button id="decryptButton">Desencriptar</button>
+                </div>
+            </div>
+        </div>
+        <div class="output-section" id="output-section">
+            <img id="outputImage" class="output-image" src="assets/Muneco.png" alt="Imagen de salida" />
+            <div class="text-block">
+                <div id="outputTextBold" class="text-bold">Ningún mensaje fue encontrado</div>
+                <div id="outputTextSmall" class="text-small">Ingrese el texto que desees encriptar o desencriptar</div>
+            </div>
+            <div class="outputContainer" id="outputContainer">
+                <button class="copyButton" id="copyButton" style="display: none;">Copiar</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
