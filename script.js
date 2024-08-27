@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Lee los elementos y los guarda en variables para ser accesibles
     const inputText = document.getElementById('inputText');
     const outputTextBold = document.getElementById('outputTextBold');
     const outputTextSmall = document.getElementById('outputTextSmall');
@@ -6,20 +7,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyButton = document.getElementById('copyButton');
     const outputSection = document.getElementById('output-section');
     const outputContainer = document.getElementById('outputContainer');
+    //Crea matrices con las palabras a añadirse en el encriptador, tanto para añadir como para remover, 
+    //hay dos en caso de futuras actualizaciones
     const wordsToAdd = ["1fd", "Okj", "d46xc"];
     const wordsToRemove = ["1fd", "Okj", "d46xc"];
 
+    //Función que obtiene el ancho y largo de la ventana, para actualizar cuando se muestran las imágenes
     function updateImageDisplay() {
         const width = window.innerWidth;
         const height = window.innerHeight;
-        console.log(`Window size: ${width}x${height}`); // Debugging line
         if (width <= 768 && height<=1174 ) {
             outputImage.style.display = 'none';
         } else {
             outputImage.style.display = 'block';
         }
     }
-
+    //función de encriptación de texto, que añade las palabras de manera aleatoria, añadiendo la palabra
+    //al inicio, en el medio y al final, de cualquier opción de la matriz expuesta arriba.
     function encryptText(text) {
         const getRandomWord = () => wordsToAdd[Math.floor(Math.random() * wordsToAdd.length)];
 
@@ -42,12 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
             .map(addRandomWords)
             .join(' ');
     }
-
+    //Función para desencriptar, remueve todas las palabras presentes de la matriz de palabras expuesta arriba.
     function decryptText(text) {
         const regex = new RegExp(`(${wordsToRemove.join('|')})`, 'g');
         return text.replace(regex, '').trim();
     }
 
+    //Función para cambiar el texto a sus características originales, dependiendo si hay texto o no 
+    //en la casilla de introducción de texto (input)
     function handleTextChange() {
         const text = inputText.value.trim();
         if (text) {
@@ -61,23 +67,23 @@ document.addEventListener('DOMContentLoaded', () => {
             copyButton.style.display = 'block';
             outputSection.style.alignItems = 'flex-start';
             outputSection.style.justifyContent = 'flex-start';
-            outputImage.style.display = 'none'; // Hide the image here as well
+            outputImage.style.display = 'none'; 
         } else {
-            outputContainer.style.marginTop = ''; // Restore original margin
+            outputContainer.style.marginTop = '';
             outputTextBold.style.wordBreak = "normal";
             outputTextBold.textContent = 'Ningún mensaje fue encontrado';
-            outputTextBold.style.textAlign = "center"; // Restore original textAlign
-            outputTextBold.style.fontWeight = ''; // Restore original fontWeight
+            outputTextBold.style.textAlign = "center"; 
+            outputTextBold.style.fontWeight = ''; 
             outputTextSmall.textContent = 'Ingrese el texto que desees encriptar.';
             copyButton.style.display = 'none';
             outputSection.style.alignItems = 'center';
             outputSection.style.justifyContent = 'center';
-            outputImage.style.display = ''; // Restore original display state for image
-            updateImageDisplay(); // Update image display based on window size
+            outputImage.style.display = ''; 
+            updateImageDisplay(); 
         }
     }
     
-
+    //llama a las funciones de cambio de texto cuando se da click a los botones.
     document.getElementById('encryptButton').addEventListener('click', handleTextChange);
     document.getElementById('decryptButton').addEventListener('click', () => {
         const text = inputText.value.trim();
@@ -105,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateImageDisplay(); 
         }
     });
-
+    //Realiza el copiado al pulsar el botón correspondiente
     copyButton.addEventListener('click', () => {
         const range = document.createRange();
         range.selectNode(outputTextBold);
@@ -115,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.getSelection().removeAllRanges(); 
     });
 
-    updateImageDisplay(); // Call on load
-    window.addEventListener('resize', updateImageDisplay); // Call on resize
+    //llama a las funciones que detectan el cambio en la pantalla
+    updateImageDisplay(); 
+    window.addEventListener('resize', updateImageDisplay); 
 });
